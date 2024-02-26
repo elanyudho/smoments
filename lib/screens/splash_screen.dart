@@ -24,7 +24,7 @@ class _SplashScreen extends State<SplashScreen> {
   void initState() {
     super.initState();
     Provider.of<PreferencesProvider>(context, listen: false).getLoginStatus();
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         startScreen();
       });

@@ -10,14 +10,12 @@ class CustomTextField extends StatefulWidget {
   final String hintText;
   final TextFormType textFormType;
   final String? password;
-  final bool obscureText;
 
   const CustomTextField(
       {super.key,
       required this.controller,
       required this.hintText,
       required this.textFormType,
-      required this.obscureText,
       this.password});
 
   @override
@@ -25,13 +23,24 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  bool _isVisible = false;
+  var _isObscure = false;
+
+  @override
+  void initState() {
+    super.initState();
+    //init obscureText
+    if (widget.textFormType == TextFormType.password ||
+        widget.textFormType == TextFormType.confirmPassword) {
+      _isObscure = true;
+    } else {
+      _isObscure = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return TextFormField(
-      obscureText: _isVisible,
+      obscureText: _isObscure,
       controller: widget.controller,
       validator: (value) {
         return getValidator(widget.textFormType, value);
@@ -56,10 +65,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ? IconButton(
                   onPressed: () {
                     setState(() {
-                      _isVisible = !_isVisible;
+                      _isObscure = !_isObscure;
                     });
                   },
-                  icon: _isVisible
+                  icon: _isObscure
                       ? const Icon(Icons.visibility)
                       : const Icon(Icons.visibility_off))
               : const SizedBox()),
@@ -81,5 +90,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
       case TextFormType.confirmPassword:
         validateConfirmPassword(widget.password!, widget.controller.text);
     }
+    return null;
   }
 }

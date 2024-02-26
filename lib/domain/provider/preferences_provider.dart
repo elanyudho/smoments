@@ -6,7 +6,7 @@ import '../../utils/helper/preference_helper.dart';
 class PreferencesProvider extends ChangeNotifier {
   PreferencesHelper preferencesHelper;
 
-  PreferencesProvider({required this.preferencesHelper}) {}
+  PreferencesProvider({required this.preferencesHelper});
 
   bool _isLogin = false;
 

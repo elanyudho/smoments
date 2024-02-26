@@ -48,7 +48,7 @@ class _RegisterScreen extends State<RegisterScreen> {
               child: Form(
                   key: _formKey,
                   child: Column(children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 24,
                     ),
                     // Logo
@@ -61,42 +61,38 @@ class _RegisterScreen extends State<RegisterScreen> {
                             })),
                     // Logo
                     AspectRatio(
-                        child: SvgPicture.asset(assetLogoBlue),
-                        aspectRatio: 7 / 1),
-                    SizedBox(height: 16),
-                    Text(
+                        aspectRatio: 7 / 1,
+                        child: SvgPicture.asset(assetLogoBlue)),
+                    const SizedBox(height: 16),
+                    const Text(
                       "Join SMoments Today",
                       style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w500,
                           color: ThemeColors.whiteColor),
                     ),
-                    SizedBox(height: 32),
+                    const SizedBox(height: 32),
                     CustomTextField(
-                        obscureText: false,
                         textFormType: TextFormType.name,
                         controller: nameController,
                         hintText: 'Name'),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     CustomTextField(
-                        obscureText: false,
                         textFormType: TextFormType.email,
                         controller: emailController,
                         hintText: 'Email'),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     CustomTextField(
-                        obscureText: true,
                         textFormType: TextFormType.password,
                         controller: passwordController,
                         hintText: 'Password '),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     CustomTextField(
-                        obscureText: true,
                         textFormType: TextFormType.confirmPassword,
                         controller: confirmPasswordController,
                         hintText: 'Confirm Password',
                         password: passwordController.text),
-                    SizedBox(height: 32),
+                    const SizedBox(height: 32),
 
                     ButtonSubmitForm(
                       isLoading: context.watch<AuthProvider>().isLoadingRegister,
@@ -119,15 +115,15 @@ class _RegisterScreen extends State<RegisterScreen> {
                         );
                       },
                     ),
-                    SizedBox(height: 64),
-                    Text(
+                    const SizedBox(height: 64),
+                    const Text(
                       "Already have an account?",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w200,
                           color: ThemeColors.whiteColor),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     ButtonOutline(
                       isLoading: false,
                       text: 'Log in',

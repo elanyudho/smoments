@@ -3,7 +3,6 @@ import 'package:smoments/data/remote/response/default_response.dart';
 import 'package:smoments/data/remote/response/login_response.dart';
 
 import '../../data/remote/api/api_service.dart';
-import '../../utils/result_state.dart';
 
 class AuthProvider extends ChangeNotifier {
 

@@ -46,30 +46,29 @@ class _LoginScreen extends State<LoginScreen> {
               child: Form(
             key: _formKey,
             child: Column(children: [
-              SizedBox(height: 64),
+              const SizedBox(height: 64),
               AspectRatio(
-                  child: SvgPicture.asset(assetLogoBlue), aspectRatio: 7 / 1),
-              SizedBox(height: 16),
-              Text(
+                  aspectRatio: 7 / 1,
+                  child: SvgPicture.asset(assetLogoBlue)),
+              const SizedBox(height: 16),
+              const Text(
                 "Log in to SMoments",
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w500,
                     color: ThemeColors.whiteColor),
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               CustomTextField(
-                obscureText: false,
                   textFormType: TextFormType.email,
                   controller: emailController,
                   hintText: 'Email'),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               CustomTextField(
-                  obscureText: true,
                   textFormType: TextFormType.password,
                   controller: passwordController,
                   hintText: 'Password '),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               ButtonSubmitForm(
                 isLoading: context.watch<AuthProvider>().isLoadingLogin,
                 text: 'Login',
@@ -97,15 +96,15 @@ class _LoginScreen extends State<LoginScreen> {
                   );
                 },
               ),
-              SizedBox(height: 64),
-              Text(
+              const SizedBox(height: 64),
+              const Text(
                 "Don't have an account?",
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w200,
                     color: ThemeColors.whiteColor),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ButtonOutline(
                 isLoading: false,
                 text: 'Register',

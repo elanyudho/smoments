@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:smoments/data/remote/response/default_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:smoments/data/remote/response/login_response.dart';
+import 'package:smoments/data/remote/response/stories_response.dart';
 
 import '../response/error_response.dart';
 
@@ -10,6 +11,8 @@ class ApiService{
   static const String _baseUrl = 'https://story-api.dicoding.dev/v1';
   static const String _register = '/register';
   static const String _login = '/login';
+  static const String _stories = '/stories';
+
 
   Future<DefaultResponse> postRegister(String name, String email, String password) async {
     Map<String, dynamic> requestBody = {
@@ -54,5 +57,14 @@ class ApiService{
       final ErrorResponse errorResponse = parseErrorResponse(response.body);
       throw (errorResponse.message);
     }
+  }
+
+  Future<StoriesResponse> getStories(String page, String size) async {
+    final response = await http.get(Uri.parse('$_baseUrl $_stories?page=$page&size=$size'));
+    if (response.statusCode == 200) {
+      return StoriesResponse.fromJson(json.decode(response.body));
+    } else {
+      final ErrorResponse errorResponse = parseErrorResponse(response.body);
+      throw (errorResponse.message);    }
   }
 }

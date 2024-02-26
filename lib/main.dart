@@ -12,7 +12,7 @@ import 'package:smoments/utils/helper/preference_helper.dart';
 import 'data/remote/api/api_service.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
   /*runApp(DevicePreview(
       enabled: true,
       tools: const [...DevicePreview.defaultTools],
@@ -38,8 +38,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp.router(
           title: "SMoments",
           theme: ThemeData(
-              primaryColor: ThemeColors.primaryColor,
-              backgroundColor: ThemeColors.whiteColor),
+              primaryColor: ThemeColors.primaryColor),
           routerConfig: router,
         ));
   }
