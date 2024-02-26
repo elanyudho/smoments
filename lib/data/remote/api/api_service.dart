@@ -50,7 +50,6 @@ class ApiService{
 
     final response = await http.post(Uri.parse(_baseUrl + _login), headers: headers, body: jsonEncode(requestBody));
 
-    print(response.statusCode.toString());
     if (response.statusCode == 200) {
       return LoginResponse.fromJson(json.decode(response.body));
     } else {
@@ -59,9 +58,15 @@ class ApiService{
     }
   }
 
-  Future<StoriesResponse> getStories(String page, String size) async {
-    final response = await http.get(Uri.parse('$_baseUrl $_stories?page=$page&size=$size'));
+  Future<StoriesResponse> getStories(String page, String token) async {
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
+    final response = await http.get(Uri.parse('$_baseUrl$_stories?page=$page&size=10'), headers: headers);
     if (response.statusCode == 200) {
+      print('success');
       return StoriesResponse.fromJson(json.decode(response.body));
     } else {
       final ErrorResponse errorResponse = parseErrorResponse(response.body);

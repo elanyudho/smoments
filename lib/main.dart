@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smoments/domain/provider/auth_provider.dart';
 import 'package:smoments/domain/provider/preferences_provider.dart';
+import 'package:smoments/domain/provider/stories_provider.dart';
 import 'package:smoments/res/colors.dart';
 import 'package:smoments/routes/router.dart';
 import 'package:smoments/utils/helper/preference_helper.dart';
@@ -33,7 +34,10 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (_) => AuthProvider(apiService: ApiService()),
           ),
-          ChangeNotifierProvider(create: (_) => PreferencesProvider(preferencesHelper: PreferencesHelper(sharedPreferences: SharedPreferences.getInstance())))
+          ChangeNotifierProvider(create: (_) => PreferencesProvider(preferencesHelper: PreferencesHelper(sharedPreferences: SharedPreferences.getInstance()))),
+          ChangeNotifierProvider(
+            create: (_) => StoriesProvider(apiService: ApiService(), preferencesHelper: PreferencesHelper(sharedPreferences: SharedPreferences.getInstance())),
+          )
         ],
         child: MaterialApp.router(
           title: "SMoments",
