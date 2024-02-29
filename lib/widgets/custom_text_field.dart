@@ -82,7 +82,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   String? getValidator(TextFormType textFormType, String? value) {
     switch (textFormType) {
       case TextFormType.name:
-        return validateName(value ?? '');
+        return validateLength(value ?? '');
       case TextFormType.email:
         return validateEmail(value ?? '');
       case TextFormType.password:

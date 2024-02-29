@@ -35,4 +35,9 @@ class PreferencesProvider extends ChangeNotifier {
     preferencesHelper.setUser(value);
     _getUser();
   }
+
+  void setLogout() {
+    setLoginStatus(false);
+    setUser(LoginResult(userId: '', name: '', token: ''));
+  }
 }

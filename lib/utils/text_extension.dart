@@ -18,3 +18,15 @@ String formatDateTime(String dateTimeString) {
     return '${dateTime.day} $month ${dateTime.year}';
   }
 }
+
+String formatDate(String dateString) {
+  DateTime dateTime = DateTime.parse(dateString);
+  String formattedDate = DateFormat('dd MMM yy').format(dateTime); // Format date as "28 Feb 24"
+  return formattedDate;
+}
+
+String formatTime(String dateString) {
+  DateTime dateTime = DateTime.parse(dateString);
+  String formattedTime = DateFormat.jm().format(dateTime); // Format time as "2:45 PM"
+  return formattedTime;
+}

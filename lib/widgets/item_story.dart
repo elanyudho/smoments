@@ -35,7 +35,7 @@ class _StoryItemState extends State<StoryItem> {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -97,9 +97,12 @@ class _StoryItemState extends State<StoryItem> {
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
                         widget.image,
-                        width: double.infinity, // Set the width of the image
-                        height: 250, // Set the height of the image
-                        fit: BoxFit.cover, // Adjust how the image is fitted within the dimensions
+                        width: double.infinity,
+                        height: 300,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) {
+                          return const Icon(Icons.error, color: ThemeColors.primaryColor);
+                        },
                       ),
                     )
                   ],

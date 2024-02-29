@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smoments/domain/provider/auth_provider.dart';
+import 'package:smoments/domain/provider/post_provider.dart';
 import 'package:smoments/domain/provider/preferences_provider.dart';
 import 'package:smoments/domain/provider/stories_provider.dart';
 import 'package:smoments/res/colors.dart';
@@ -13,31 +14,25 @@ import 'package:smoments/utils/helper/preference_helper.dart';
 import 'data/remote/api/api_service.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: ThemeColors.primaryColor,
+  ));
   runApp(const MyApp());
-  /*runApp(DevicePreview(
-      enabled: true,
-      tools: const [...DevicePreview.defaultTools],
-      builder: (context) => const MyApp()));*/
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: ThemeColors.primaryColor, // Set the status bar color
-    ));
+
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(
-            create: (_) => AuthProvider(apiService: ApiService()),
-          ),
+          ChangeNotifierProvider(create: (_) => AuthProvider(apiService: ApiService()),),
           ChangeNotifierProvider(create: (_) => PreferencesProvider(preferencesHelper: PreferencesHelper(sharedPreferences: SharedPreferences.getInstance()))),
-          ChangeNotifierProvider(
-            create: (_) => StoriesProvider(apiService: ApiService(), preferencesHelper: PreferencesHelper(sharedPreferences: SharedPreferences.getInstance())),
-          )
+          ChangeNotifierProvider(create: (_) => StoriesProvider(apiService: ApiService(), preferencesHelper: PreferencesHelper(sharedPreferences: SharedPreferences.getInstance()))),
+          ChangeNotifierProvider(create: (_) => PostProvider(apiService: ApiService(), preferenceHelper: PreferencesHelper(sharedPreferences: SharedPreferences.getInstance()))),
+
         ],
         child: MaterialApp.router(
           title: "SMoments",
