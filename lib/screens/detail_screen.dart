@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:smoments/domain/provider/stories_provider.dart';
+import 'package:smoments/routes/router.dart';
 import 'package:smoments/utils/result_state.dart';
 import 'package:smoments/utils/text_extension.dart';
 
@@ -102,21 +105,46 @@ class _DetailScreenState extends State<DetailScreen> {
                             child: Image.network(data.photoUrl,
                                 width: double.infinity,
                                 fit: BoxFit.cover, errorBuilder: (_, __, ___) {
-                                  return const Icon(Icons.error,
+                              return const Icon(Icons.error,
                                   color: ThemeColors.primaryColor);
                             }),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
-                          Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
+                          Row(
+                            children: [
+                              Text(
                                 '${formatTime(data.createdAt.toString())} · ${formatDate(data.createdAt.toString())}',
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                              if (data.lon > 0.0 || data.lat >= 0.0)
+                                const Text(
+                                ' · ',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.normal),
-                              ))
+                              ),
+                              if (data.lon > 0.0 || data.lat >= 0.0)
+                                GestureDetector(
+                                onTap: () {
+                                  context.goNamed(nameLocation, queryParameters: {'name': data.name, 'caption': data.description, 'long': data.lon.toString(), 'lat': data.lat.toString()});
+                                },
+                                child: const Row(
+                                  children: [
+                                    Icon(size:20, Icons.location_on_outlined, color: ThemeColors.primaryColor,),
+                                    Text(
+                                    'Location',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                  )],
+                                ),
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     ),

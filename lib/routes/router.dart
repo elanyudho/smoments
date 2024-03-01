@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smoments/screens/detail_screen.dart';
 import 'package:smoments/screens/home_screen.dart';
+import 'package:smoments/screens/location_screen.dart';
 import 'package:smoments/screens/login_screen.dart';
 import 'package:smoments/screens/post_story_screen.dart';
 import 'package:smoments/screens/register_screen.dart';
@@ -24,6 +27,19 @@ final GoRouter router = GoRouter(
           builder: (context, state) {
             return const DetailScreen();
           },
+          routes: <RouteBase> [
+            GoRoute(
+              path: pathLocation,
+              name: nameLocation,
+              builder: (BuildContext context, GoRouterState state) {
+                var name = state.uri.queryParameters['name']!;
+                var caption = state.uri.queryParameters['caption']!;
+                var long = double.parse(state.uri.queryParameters['long']!);
+                var lat = double.parse(state.uri.queryParameters['lat']!);
+                return LocationScreen(name: name, caption: caption, long: long, lat: lat);
+              },
+            )
+          ]
         ),
         GoRoute(
           path: pathPostStory,
@@ -57,4 +73,6 @@ const pathDetail = 'detail';
 const nameDetail = 'detail';
 const pathPostStory = 'postStory';
 const namePostStory = 'postStory';
+const pathLocation = 'location';
+const nameLocation = 'location';
 
