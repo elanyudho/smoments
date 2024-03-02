@@ -463,46 +463,47 @@ class _PostStoryScreenState extends State<PostStoryScreen> {
     }
     locationData = await location.getLocation();
     final latLng = LatLng(locationData.latitude!, locationData.longitude!);
-    _setAddress(locationData.longitude!, locationData.latitude!);
+    final address = _setAddress(locationData.longitude!, locationData.latitude!);
     Provider.of<PostProvider>(context, listen: false).setLatLong(locationData.latitude!, locationData.longitude!);
-    setMarker(latLng);
+
+    setMarker(latLng, await address);
     callback();
   }
 
   // set address by long lat
-  void _setAddress(double long, double lat) async {
+  Future<String> _setAddress(double long, double lat) async {
     final info = await geo.placemarkFromCoordinates(lat, long);
     final place = info[0];
-    final address =
-        '${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+    final address = '${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
     setState(() {
       Provider.of<PostProvider>(context, listen: false).setAddress(address);
     });
+    return address;
   }
 
   // create marker
-  void setMarker(LatLng latLng) {
-    setState(() {
+  void setMarker(LatLng latLng, String address) {
       final marker = Marker(
         markerId: const MarkerId("positionStory"),
         position: latLng,
-        infoWindow: const InfoWindow(title: 'Your Location'),
+        infoWindow: InfoWindow(title: 'Your Location', snippet: address)
       );
-      context.read<PostProvider>().addOneMarker(marker);
-    });
+      setState(() {
+        context.read<PostProvider>().addOneMarker(marker);
+      });
   }
 
   //pick location when on long press
   void onLongPressGoogleMap(LatLng latLng) async {
-    _setAddress(latLng.longitude, latLng.latitude);
-
     context.read<PostProvider>().setLatLong(latLng.latitude, latLng.longitude);
+    final address = _setAddress(latLng.longitude, latLng.latitude);
     mapBottomSheetController.animateCamera(
       CameraUpdate.newLatLng(latLng),
     );
     mapPostController.animateCamera(
       CameraUpdate.newLatLng(latLng),
     );
+    setMarker(latLng, await address);
   }
 
   // show maps from bottom sheet to pick location
@@ -535,7 +536,6 @@ class _PostStoryScreenState extends State<PostStoryScreen> {
                           },
                           onLongPress: (LatLng latLng) {
                             onLongPressGoogleMap(latLng);
-                            setMarker(latLng);
                           }),
                     )
                   ],

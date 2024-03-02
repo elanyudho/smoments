@@ -72,6 +72,8 @@ class PostProvider extends ChangeNotifier {
     imageFile = null;
     _lat = 0.0;
     _long = 0.0;
+    _address = '';
+    markers.clear();
   }
 
   void addOneMarker (Marker marker) {
