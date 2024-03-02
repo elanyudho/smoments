@@ -87,9 +87,11 @@ class ApiService{
     }
   }
 
-  Future<DefaultResponse> postStory(String description, List<int> photo, String fileName, String token) async {
+  Future<DefaultResponse> postStory(String description, List<int> photo, String fileName, String lat, String lon, String token) async {
     final Map<String, String> fields = {
       "description": description,
+      "lat": lat,
+      "lon": lon
     };
 
     final MultipartFile multiPartFile = http.MultipartFile.fromBytes(

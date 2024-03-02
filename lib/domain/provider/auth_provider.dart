@@ -16,7 +16,6 @@ class AuthProvider extends ChangeNotifier {
   bool isLoadingRegister = false;
   bool isLoadingLogin= false;
 
-
   LoginResult get loginResult => _loginResult;
 
   DefaultResponse get registerResult => _registerResult;

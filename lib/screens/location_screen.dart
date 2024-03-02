@@ -16,25 +16,22 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreen extends State<LocationScreen> {
-  final LatLng dicodingOffice = const LatLng(-6.8957473, 107.6337669);
-
   final Set<Marker> markers = {};
   late GoogleMapController mapController;
 
   @override
   void initState() {
     super.initState();
-
     final marker = Marker(
       markerId: const MarkerId("story"),
-      position: dicodingOffice,
+      position: LatLng(widget.lat, widget.long),
       infoWindow: InfoWindow(
         title: widget.name,
         snippet: widget.caption
       ),
       onTap: () {
         mapController.animateCamera(
-          CameraUpdate.newLatLngZoom(dicodingOffice, 18),
+          CameraUpdate.newLatLngZoom(LatLng(widget.lat, widget.long), 18),
         );
       },
     );
@@ -63,7 +60,7 @@ class _LocationScreen extends State<LocationScreen> {
         markers: markers,
         initialCameraPosition: CameraPosition(
           zoom: 15,
-          target: dicodingOffice,
+          target: LatLng(widget.lat, widget.long),
         ),
         onMapCreated: (controller) {
           setState(() {

@@ -2,6 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
     <key>NSCameraUsageDescription</key>
     <string>Buka privasi ini untuk akses kamera.</string>
     <key>NSMicrophoneUsageDescription</key>
@@ -51,5 +52,16 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+        <string>The app needs user's location permission</string>
+        <key>NSLocationAlwaysUsageDescription</key>
+        <string>The app needs user's location permission</string>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>The app needs location service permission</string>
+
+        <key>UIBackgroundModes</key>
+        <array>
+            <string>location</string>
+        </array>
 </dict>
 </plist>
