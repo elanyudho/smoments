@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geocoding/geocoding.dart' as geo;
 
 class LocationScreen extends StatefulWidget {
 
@@ -22,20 +23,22 @@ class _LocationScreen extends State<LocationScreen> {
   @override
   void initState() {
     super.initState();
-    final marker = Marker(
-      markerId: const MarkerId("story"),
-      position: LatLng(widget.lat, widget.long),
-      infoWindow: InfoWindow(
-        title: widget.name,
-        snippet: widget.caption
-      ),
-      onTap: () {
-        mapController.animateCamera(
-          CameraUpdate.newLatLngZoom(LatLng(widget.lat, widget.long), 18),
-        );
-      },
-    );
-    markers.add(marker);
+    _setAddress(widget.long, widget.lat, (address) {
+      final marker = Marker(
+        markerId: const MarkerId("story"),
+        position: LatLng(widget.lat, widget.long),
+        infoWindow: InfoWindow(
+            title: widget.name,
+            snippet: address
+        ),
+        onTap: () {
+          mapController.animateCamera(
+            CameraUpdate.newLatLngZoom(LatLng(widget.lat, widget.long), 18),
+          );
+        },
+      );
+      markers.add(marker);
+    });
   }
 
   @override
@@ -69,6 +72,13 @@ class _LocationScreen extends State<LocationScreen> {
         },
       ),
     ));
+  }
+
+  void _setAddress(double long, double lat, Function(String) callback) async {
+    final info = await geo.placemarkFromCoordinates(lat, long);
+    final place = info[0];
+    final address = '${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+    callback(address);
   }
 
 }

@@ -119,14 +119,14 @@ class _DetailScreenState extends State<DetailScreen> {
                                     fontSize: 16,
                                     fontWeight: FontWeight.normal),
                               ),
-                              if (data.lon > 0.0 || data.lat > 0.0)
+                              if (data.lon != null || data.lat != null)
                                 const Text(
                                 ' · ',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.normal),
                               ),
-                              if (data.lon > 0.0 || data.lat > 0.0)
+                              if (data.lon != null|| data.lat != null)
                                 GestureDetector(
                                 onTap: () {
                                   context.goNamed(nameLocation, queryParameters: {'name': data.name, 'caption': data.description, 'long': data.lon.toString(), 'lat': data.lat.toString()});

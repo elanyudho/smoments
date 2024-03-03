@@ -8,7 +8,6 @@ import 'package:smoments/data/remote/response/detail_story_response.dart';
 import 'package:smoments/data/remote/response/login_response.dart';
 import 'package:smoments/data/remote/response/stories_response.dart';
 
-import '../response/error_response.dart';
 
 class ApiService{
   static const String _baseUrl = 'https://story-api.dicoding.dev/v1';

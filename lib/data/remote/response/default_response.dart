@@ -1,10 +1,15 @@
 
 import 'dart:convert';
 
+import 'package:json_annotation/json_annotation.dart';
+
+part 'default_response.g.dart';
+
 DefaultResponse defaultResponseFromJson(String str) => DefaultResponse.fromJson(json.decode(str));
 
 String defaultResponseToJson(DefaultResponse data) => json.encode(data.toJson());
 
+@JsonSerializable()
 class DefaultResponse {
   bool error;
   String message;
@@ -14,13 +19,7 @@ class DefaultResponse {
     required this.message,
   });
 
-  factory DefaultResponse.fromJson(Map<String, dynamic> json) => DefaultResponse(
-    error: json["error"],
-    message: json["message"],
-  );
+  factory DefaultResponse.fromJson(Map<String, dynamic> json) => _$DefaultResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-    "error": error,
-    "message": message,
-  };
+  Map<String, dynamic> toJson() => _$DefaultResponseToJson(this);
 }
